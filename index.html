@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Amerit Fleet AI Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #0f172a;
+      color: white;
+    }
+    .header {
+      padding: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      background: #111827;
+    }
+    .card {
+      background: #1e293b;
+      margin: 15px;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    button {
+      background: #22c55e;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      color: black;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 10px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  Amerit Fleet AI Portal
+</div>
+
+<div class="card">
+  <h3>Technician Notes</h3>
+  <textarea id="notes">Found air leak at foot brake valve. Multiple fittings leaking.</textarea>
+  <button onclick="runAI()">Run AI Workflow</button>
+</div>
+
+<div class="card">
+  <h3>Customer Notes</h3>
+  <p id="customer"></p>
+</div>
+
+<div class="card">
+  <h3>Status</h3>
+  <p id="status"></p>
+</div>
+
+<script>
+function runAI() {
+  let notes = document.getElementById("notes").value;
+
+  document.getElementById("customer").innerText =
+    "Inspection found air system leaks requiring repair. Components will be replaced to restore proper function.";
+
+  if (notes.length < 50) {
+    document.getElementById("status").innerText = "HOLD – Missing Info";
+  } else {
+    document.getElementById("status").innerText = "READY FOR REVIEW";
+  }
+}
+</script>
+
+</body>
+</html>
