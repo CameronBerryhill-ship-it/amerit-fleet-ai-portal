@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Flyproud V5</title>
+  <title>Flyproud v6</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root{
@@ -21,8 +21,8 @@
       --green:#77b255;
       --red:#d9534f;
       --blue:#5da9e9;
+      --orange:#f0ad4e;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -31,14 +31,12 @@
       background:var(--bg);
       color:var(--text);
     }
-
     .app{
       display:grid;
-      grid-template-columns: 176px 1fr;
-      grid-template-rows: 38px 1fr;
+      grid-template-columns:176px 1fr;
+      grid-template-rows:38px 1fr;
       min-height:100vh;
     }
-
     .topbar{
       grid-column:1 / -1;
       background:var(--nav);
@@ -50,350 +48,181 @@
       font-size:12px;
       border-bottom:1px solid #454658;
     }
-
-    .topbar-left{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:bold;
-    }
-
-    .hamburger{
-      font-size:18px;
-      opacity:.9;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-size:16px;
-      font-weight:bold;
-    }
-
+    .topbar-left{display:flex;align-items:center;gap:12px;font-weight:bold}
+    .hamburger{font-size:18px;opacity:.9}
+    .brand{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:bold}
     .brand-mark{
-      width:14px;
-      height:14px;
-      border-left:4px solid var(--gold);
-      border-top:4px solid #fff;
-      border-bottom:4px solid var(--gold);
-      border-right:4px solid transparent;
-      transform:skewX(-8deg);
+      width:14px;height:14px;border-left:4px solid var(--gold);
+      border-top:4px solid #fff;border-bottom:4px solid var(--gold);
+      border-right:4px solid transparent;transform:skewX(-8deg);
     }
-
-    .topbar-right{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      white-space:nowrap;
-    }
-
+    .topbar-right{display:flex;align-items:center;gap:16px;white-space:nowrap}
     .user-pill{
-      width:26px;
-      height:26px;
-      border-radius:50%;
-      background:#f1f1f1;
-      color:#333;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:bold;
-      font-size:11px;
+      width:26px;height:26px;border-radius:50%;background:#f1f1f1;color:#333;
+      display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:11px;
     }
-
     .sidebar{
-      background:var(--nav-2);
-      color:#fff;
-      overflow:auto;
-      border-right:1px solid #404152;
+      background:var(--nav-2);color:#fff;overflow:auto;border-right:1px solid #404152;
     }
-
     .side-section-title{
-      background:var(--nav-3);
-      color:#fff;
-      font-size:11px;
-      font-weight:bold;
-      padding:10px 14px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      border-bottom:1px solid #3a3b4b;
+      background:var(--nav-3);color:#fff;font-size:11px;font-weight:bold;
+      padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #3a3b4b;
     }
-
-    .side-group{
-      padding:8px 0;
-      border-bottom:1px solid #3b3c4c;
+    .side-group{padding:8px 0;border-bottom:1px solid #3b3c4c}
+    .side-item,.side-subitem{
+      display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:11px;color:#fff;cursor:pointer;
     }
-
-    .side-item,
-    .side-subitem{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 14px;
-      font-size:11px;
-      color:#fff;
-      cursor:pointer;
-    }
-
-    .side-item:hover,
-    .side-subitem:hover{
-      background:#3a3b4b;
-    }
-
-    .side-subitem{
-      padding-left:34px;
-      opacity:.95;
-    }
-
+    .side-item:hover,.side-subitem:hover{background:#3a3b4b}
+    .side-subitem{padding-left:34px;opacity:.95}
     .side-subitem.active{
-      background:#3b3c4d;
-      border-left:4px solid var(--gold);
-      padding-left:30px;
+      background:#3b3c4d;border-left:4px solid var(--gold);padding-left:30px;
     }
-
-    .icon-dot{
-      width:10px;
-      text-align:center;
-      color:#d8d8de;
-      font-size:12px;
-    }
-
-    .main{
-      overflow:auto;
-      background:var(--bg);
-      padding:0;
-    }
-
-    .content{
-      padding:14px 22px 12px;
-    }
-
+    .icon-dot{width:10px;text-align:center;color:#d8d8de;font-size:12px}
+    .main{overflow:auto;background:var(--bg)}
+    .content{padding:14px 22px 12px}
     .breadcrumb{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-size:13px;
-      margin-bottom:12px;
-      color:#6c6c77;
+      display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:12px;color:#6c6c77;
     }
-
-    .crumb-current{
-      color:#5b5b67;
-      font-weight:bold;
-    }
-
-    .crumb-folder{
-      color:var(--gold-2);
-      font-size:14px;
-    }
-
+    .crumb-current{color:#5b5b67;font-weight:bold}
+    .crumb-folder{color:var(--gold-2);font-size:14px}
     .search-panel{
-      background:#f6f6f6;
-      border:1px solid var(--line);
-      padding:8px 10px 10px;
-      margin-bottom:10px;
+      background:#f6f6f6;border:1px solid var(--line);padding:8px 10px 10px;margin-bottom:10px;
     }
-
-    .search-label{
-      font-size:10px;
-      color:#666;
-      margin-bottom:4px;
+    .search-label{font-size:10px;color:#666;margin-bottom:4px}
+    .search-row{display:flex;align-items:center;gap:8px;max-width:720px;flex-wrap:wrap}
+    .search-row input,.search-row select,.input{
+      height:30px;border:1px solid #cfcfcf;background:#fff;padding:0 10px;font-size:12px;outline:none;
     }
-
-    .search-row{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      max-width:500px;
+    .search-row input{flex:1;min-width:220px}
+    .search-row select{min-width:160px}
+    .search-btn,.btn{
+      height:30px;border:none;background:var(--gold);cursor:pointer;border-radius:2px;
+      font-weight:bold;padding:0 12px;font-size:12px;color:#222;
     }
-
-    .search-row input{
-      flex:1;
-      height:30px;
-      border:1px solid #cfcfcf;
-      background:#fff;
-      padding:0 10px;
-      font-size:12px;
-      outline:none;
-    }
-
-    .search-btn{
-      width:28px;
-      height:28px;
-      border:none;
-      background:var(--gold);
-      cursor:pointer;
-      border-radius:2px;
-      font-weight:bold;
-    }
-
-    .tabbar{
-      display:flex;
-      gap:1px;
-      align-items:flex-end;
-      margin-bottom:8px;
-      flex-wrap:wrap;
-    }
-
+    .btn-secondary{background:#e9e9e9}
+    .btn-blue{background:var(--blue)}
+    .btn-green{background:var(--green);color:#fff}
+    .btn-red{background:var(--red);color:#fff}
+    .btn-orange{background:var(--orange);color:#fff}
+    .tabbar{display:flex;gap:1px;align-items:flex-end;margin-bottom:8px;flex-wrap:wrap}
     .tab{
-      background:#f4f4f4;
-      border:1px solid var(--line);
-      border-bottom:none;
-      padding:8px 10px;
-      font-size:10px;
-      color:#666;
-      min-height:30px;
-      display:flex;
-      align-items:center;
-      gap:6px;
+      background:#f4f4f4;border:1px solid var(--line);border-bottom:none;padding:8px 10px;
+      font-size:10px;color:#666;min-height:30px;display:flex;align-items:center;gap:6px;cursor:pointer;
     }
-
-    .tab.active{
-      background:#fff;
-      color:#444;
-      font-weight:bold;
-    }
-
+    .tab.active{background:#fff;color:#444;font-weight:bold}
     .count{
-      min-width:16px;
-      height:16px;
-      border-radius:999px;
-      background:var(--gold);
-      color:#fff;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-size:10px;
-      font-weight:bold;
-      padding:0 4px;
+      min-width:16px;height:16px;border-radius:999px;background:var(--gold);color:#fff;
+      display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;padding:0 4px;
     }
-
-    .grid-shell{
-      background:#fff;
-      border:1px solid var(--line);
-      position:relative;
-    }
-
+    .grid-shell{background:#fff;border:1px solid var(--line);position:relative}
     .grid-topnote{
-      font-size:10px;
-      color:#868686;
-      padding:8px 10px;
-      border-bottom:1px solid var(--line);
-      background:#fafafa;
+      font-size:10px;color:#868686;padding:8px 10px;border-bottom:1px solid var(--line);background:#fafafa;
     }
-
-    .grid-wrap{
-      overflow:auto;
-      max-height:460px;
-    }
-
-    table{
-      border-collapse:collapse;
-      width:2200px;
-      font-size:10px;
-      color:#5b5b66;
-    }
-
+    .grid-wrap{overflow:auto;max-height:470px}
+    table{border-collapse:collapse;width:2200px;font-size:10px;color:#5b5b66}
     thead th{
-      position:sticky;
-      top:0;
-      background:#fff;
-      z-index:2;
-      border-bottom:1px solid var(--line);
-      border-right:1px solid #ececec;
-      padding:8px 6px;
-      text-align:left;
-      white-space:nowrap;
-      font-weight:bold;
-    }
-
-    tbody td{
-      border-bottom:1px solid #e7e7e7;
-      border-right:1px solid #efefef;
-      padding:7px 6px;
-      white-space:nowrap;
-      background:#fff;
-    }
-
-    tbody tr:nth-child(even) td{
-      background:#fcfcfc;
-    }
-
-    tbody tr:hover td{
-      background:#fffceb;
-    }
-
-    .link{
-      color:#d7a316;
-      text-decoration:underline;
+      position:sticky;top:0;background:#fff;z-index:2;border-bottom:1px solid var(--line);
+      border-right:1px solid #ececec;padding:8px 6px;text-align:left;white-space:nowrap;font-weight:bold;
       cursor:pointer;
     }
-
-    .tiny-icon{
-      color:#d3a116;
-      font-size:11px;
+    tbody td{
+      border-bottom:1px solid #e7e7e7;border-right:1px solid #efefef;padding:7px 6px;white-space:nowrap;background:#fff;
     }
-
-    .status-work{
-      color:#333;
-      font-weight:bold;
-    }
-
-    .status-approved{
-      color:var(--green);
-      font-weight:bold;
-    }
-
-    .status-pending{
-      color:#a97700;
-      font-weight:bold;
-    }
-
-    .footer-note{
-      text-align:center;
-      font-size:10px;
-      color:#777;
-      margin-top:4px;
-    }
-
+    tbody tr:nth-child(even) td{background:#fcfcfc}
+    tbody tr:hover td{background:#fffceb}
+    .link{color:#d7a316;text-decoration:underline;cursor:pointer}
+    .tiny-icon{color:#d3a116;font-size:11px}
+    .status-work{color:#333;font-weight:bold}
+    .status-approved{color:var(--green);font-weight:bold}
+    .status-pending{color:#a97700;font-weight:bold}
+    .status-review{color:#336699;font-weight:bold}
+    .status-return{color:var(--red);font-weight:bold}
+    .footer-note{text-align:center;font-size:10px;color:#777;margin-top:4px}
     .support{
-      position:fixed;
-      right:16px;
-      bottom:12px;
-      background:#176b6e;
-      color:#fff;
-      border:none;
-      border-radius:16px;
-      padding:8px 12px;
-      font-size:11px;
-      font-weight:bold;
-      box-shadow:0 2px 6px rgba(0,0,0,.18);
+      position:fixed;right:16px;bottom:12px;background:#176b6e;color:#fff;border:none;border-radius:16px;
+      padding:8px 12px;font-size:11px;font-weight:bold;box-shadow:0 2px 6px rgba(0,0,0,.18);
     }
-
     .badge-soft{
-      display:inline-block;
-      padding:2px 6px;
-      border-radius:10px;
-      background:#fff7d7;
-      color:#8f6d00;
-      font-weight:bold;
-      font-size:10px;
+      display:inline-block;padding:2px 6px;border-radius:10px;background:#fff7d7;color:#8f6d00;font-weight:bold;font-size:10px;
     }
-
+    .hidden{display:none!important}
+    .workspace{
+      background:#fff;border:1px solid var(--line);
+    }
+    .workspace-header{
+      padding:12px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;
+    }
+    .workspace-title{font-size:18px;font-weight:bold}
+    .workspace-sub{font-size:11px;color:#777;margin-top:4px}
+    .badge{
+      display:inline-block;padding:5px 8px;border-radius:12px;font-size:11px;font-weight:bold;
+    }
+    .badge.review{background:#dbe9f7;color:#295a85}
+    .badge.hold{background:#fff1cf;color:#8a6700}
+    .badge.approved{background:#dbf0df;color:#2b6b34}
+    .badge.returned{background:#f8d8d8;color:#8b2c2c}
+    .workspace-grid{
+      display:grid;grid-template-columns: 1.15fr .85fr;gap:0;
+    }
+    .panel{
+      padding:14px;border-right:1px solid var(--line);
+    }
+    .panel:last-child{border-right:none}
+    .panel h3{
+      margin:0 0 10px;font-size:14px;
+    }
+    .stack{display:flex;flex-direction:column;gap:10px}
+    textarea,.textinput{
+      width:100%;min-height:110px;border:1px solid #cfcfcf;background:#fff;padding:10px;font-size:12px;outline:none;
+      resize:vertical;
+    }
+    .textinput{min-height:auto;height:32px}
+    .subgrid{
+      display:grid;grid-template-columns:1fr 1fr;gap:10px;
+    }
+    .toolbar{
+      display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;
+    }
+    .section-card{
+      border:1px solid var(--line);background:#fafafa;padding:10px;margin-top:10px;
+    }
+    .kv{
+      display:grid;grid-template-columns:160px 1fr;gap:6px;font-size:12px;margin-top:6px;
+    }
+    .pill{
+      display:inline-block;padding:4px 7px;border-radius:12px;background:#f1f1f1;font-size:11px;margin-right:6px;margin-bottom:6px;
+    }
+    .issues-list li{margin-bottom:6px}
+    .line-items{
+      width:100%;border-collapse:collapse;font-size:12px;
+    }
+    .line-items th,.line-items td{
+      border:1px solid #ddd;padding:7px;text-align:left;background:#fff;white-space:normal;
+    }
+    .line-items th{background:#f5f5f5}
+    .good{color:#2f7a38;font-weight:bold}
+    .bad{color:#a63b3b;font-weight:bold}
+    .right-actions{
+      display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;
+    }
+    .amazon-ready{
+      padding:10px;border:1px solid #d7ead8;background:#f4fff4;font-size:12px;
+    }
+    .amazon-hold{
+      padding:10px;border:1px solid #f0d2d2;background:#fff7f7;font-size:12px;
+    }
+    .mini-note{
+      font-size:11px;color:#777;
+    }
     @media (max-width: 1100px){
-      .app{
-        grid-template-columns: 1fr;
-      }
-      .sidebar{
-        display:none;
-      }
-      .content{
-        padding:10px;
-      }
-      .search-row{
-        max-width:none;
-      }
+      .app{grid-template-columns:1fr}
+      .sidebar{display:none}
+      .content{padding:10px}
+      .search-row{max-width:none}
+      .workspace-grid{grid-template-columns:1fr}
+      .panel{border-right:none;border-bottom:1px solid var(--line)}
+      .panel:last-child{border-bottom:none}
+      .subgrid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -417,12 +246,10 @@
 
     <aside class="sidebar">
       <div class="side-section-title">🗂 CUSTOMERS</div>
-
       <div class="side-group">
         <div class="side-item"><span class="icon-dot">◔</span> DASHBOARD</div>
         <div class="side-item"><span class="icon-dot">📝</span> ESTIMATES</div>
       </div>
-
       <div class="side-group">
         <div class="side-item"><span class="icon-dot">a</span> AMAZON</div>
         <div class="side-subitem"><span class="icon-dot">🚚</span> MIDDLE MILE</div>
@@ -433,7 +260,6 @@
         <div class="side-subitem"><span class="icon-dot">🔍</span> SEARCH</div>
         <div class="side-subitem"><span class="icon-dot">🗺</span> SERVICE MAPPING</div>
       </div>
-
       <div class="side-group">
         <div class="side-item"><span class="icon-dot">🚛</span> LAST MILE</div>
         <div class="side-subitem"><span class="icon-dot">⚙</span> FM LINKS</div>
@@ -445,7 +271,6 @@
         <div class="side-subitem"><span class="icon-dot">✎</span> CANCEL RO</div>
         <div class="side-subitem"><span class="icon-dot">🗺</span> SERVICE MAPPING</div>
       </div>
-
       <div class="side-group">
         <div class="side-item"><span class="icon-dot">💰</span> AR</div>
         <div class="side-item"><span class="icon-dot">🧰</span> PARTS</div>
@@ -456,368 +281,623 @@
 
     <main class="main">
       <div class="content">
-        <div class="breadcrumb">
-          <span class="crumb-folder">📁</span>
-          <span class="crumb-current">Customers</span>
-          <span>›</span>
-          <span>Amazon</span>
+
+        <div id="queueView">
+          <div class="breadcrumb">
+            <span class="crumb-folder">📁</span>
+            <span class="crumb-current">Customers</span>
+            <span>›</span>
+            <span>Amazon</span>
+          </div>
+
+          <div class="search-panel">
+            <div class="search-label">Search All Grids:</div>
+            <div class="search-row">
+              <input id="globalSearch" type="text" placeholder="Search all..." />
+              <select id="statusFilter">
+                <option value="ALL">All statuses</option>
+                <option value="NEEDS_REVIEW">Needs Review</option>
+                <option value="ASSIGNED">Assigned</option>
+                <option value="ESTIMATE_PENDING">Estimate Pending</option>
+                <option value="ISSUES_RESUBMIT">Issues/Resubmit</option>
+                <option value="ESTIMATE_APPROVED">Estimate Approved</option>
+              </select>
+              <button class="search-btn" onclick="renderGrid()">🔍</button>
+            </div>
+          </div>
+
+          <div class="tabbar" id="tabs"></div>
+
+          <div class="grid-shell">
+            <div class="grid-topnote">Click any row to open the estimate builder. Click column headers to sort.</div>
+            <div class="grid-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th onclick="sortBy('estimateId')">Estimate Id</th>
+                    <th onclick="sortBy('vin')">Vin</th>
+                    <th onclick="sortBy('timeInQueue')">Time In Queue</th>
+                    <th onclick="sortBy('roNum')">RO Num</th>
+                    <th onclick="sortBy('woStatus')">WO Status</th>
+                    <th onclick="sortBy('estimator')">Estimator</th>
+                    <th onclick="sortBy('tech')">Tech</th>
+                    <th onclick="sortBy('amzId')">AMZ Id</th>
+                    <th onclick="sortBy('make')">Make</th>
+                    <th onclick="sortBy('assignedDate')">Assigned Date</th>
+                    <th>Parts PO</th>
+                    <th onclick="sortBy('created')">Created</th>
+                    <th>Delay Reason</th>
+                    <th>Parts Req</th>
+                    <th>Status Bucket</th>
+                  </tr>
+                </thead>
+                <tbody id="gridBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="footer-note">Flyproud Portal · Release Notes</div>
         </div>
 
-        <div class="search-panel">
-          <div class="search-label">Search All Grids:</div>
-          <div class="search-row">
-            <input type="text" placeholder="Search all..." />
-            <button class="search-btn">🔍</button>
+        <div id="estimateView" class="hidden">
+          <div class="workspace">
+            <div class="workspace-header">
+              <div>
+                <div class="workspace-title" id="workTitle">Estimate Workspace</div>
+                <div class="workspace-sub" id="workSub"></div>
+              </div>
+              <div class="right-actions">
+                <button class="btn btn-secondary" onclick="goBack()">← Back to Queue</button>
+                <span id="statusBadge"></span>
+              </div>
+            </div>
+
+            <div class="workspace-grid">
+              <div class="panel">
+                <h3>Technician Submission</h3>
+                <div class="subgrid">
+                  <div>
+                    <div class="mini-note">Complaint</div>
+                    <input id="complaintInput" class="textinput" />
+                  </div>
+                  <div>
+                    <div class="mini-note">Failure Location / Unit</div>
+                    <input id="unitInput" class="textinput" />
+                  </div>
+                </div>
+
+                <div class="stack" style="margin-top:10px;">
+                  <div>
+                    <div class="mini-note">Technician Notes</div>
+                    <textarea id="techNotesInput"></textarea>
+                  </div>
+                  <div>
+                    <div class="mini-note">Photos Referenced</div>
+                    <input id="photosInput" class="textinput" placeholder="Example: 4 photos uploaded, unit ID photo included" />
+                  </div>
+                </div>
+
+                <div class="toolbar">
+                  <button class="btn btn-blue" onclick="runAI()">Run AI Assistant</button>
+                  <button class="btn btn-secondary" onclick="saveCurrent()">Save</button>
+                  <button class="btn btn-red" onclick="sendBackToTech()">Send Back to Tech</button>
+                </div>
+
+                <div class="section-card">
+                  <h3>AI Review</h3>
+                  <div id="qualityResult" class="mini-note">Run the assistant to review note quality.</div>
+                  <ul id="qualityIssues" class="issues-list"></ul>
+                </div>
+
+                <div class="section-card">
+                  <h3>AI Customer Notes</h3>
+                  <textarea id="customerNotesOutput"></textarea>
+                </div>
+
+                <div class="section-card">
+                  <h3>Amazon Submission Readiness</h3>
+                  <div id="readyBox" class="amazon-hold">Not evaluated yet.</div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <h3>Estimate Builder</h3>
+                <div class="section-card">
+                  <h3>Recommended Parts</h3>
+                  <table class="line-items">
+                    <thead>
+                      <tr><th>Qty</th><th>Part</th><th>Description</th></tr>
+                    </thead>
+                    <tbody id="partsBody"></tbody>
+                  </table>
+                </div>
+
+                <div class="section-card">
+                  <h3>Recommended Labor</h3>
+                  <table class="line-items">
+                    <thead>
+                      <tr><th>Hours</th><th>Operation</th><th>Notes</th></tr>
+                    </thead>
+                    <tbody id="laborBody"></tbody>
+                  </table>
+                </div>
+
+                <div class="section-card">
+                  <h3>Submission Packet</h3>
+                  <div class="kv">
+                    <div><strong>RO</strong></div><div id="packetRO"></div>
+                    <div><strong>Status</strong></div><div id="packetStatus"></div>
+                    <div><strong>Customer Notes</strong></div><div id="packetNotes"></div>
+                    <div><strong>Parts Count</strong></div><div id="packetParts"></div>
+                    <div><strong>Labor Lines</strong></div><div id="packetLabor"></div>
+                    <div><strong>Needs Resubmission?</strong></div><div id="packetResub"></div>
+                  </div>
+                </div>
+
+                <div class="toolbar">
+                  <button class="btn btn-green" onclick="markReady()">Mark Ready to Submit</button>
+                  <button class="btn btn-orange" onclick="submitAmazon()">Submit to Amazon</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="tabbar">
-          <div class="tab active">NEEDS REVIEW <span class="count">14</span></div>
-          <div class="tab">ASSIGNED <span class="count">7</span></div>
-          <div class="tab">ESTIMATE PENDING <span class="count">1</span></div>
-          <div class="tab">ISSUES/RESUBMIT <span class="count">0</span></div>
-          <div class="tab">ESTIMATE APPROVED <span class="count">15</span></div>
-        </div>
-
-        <div class="grid-shell">
-          <div class="grid-topnote">Drag a column header here to group by that column</div>
-          <div class="grid-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>⚙</th>
-                  <th>Estimate Id</th>
-                  <th>Vin</th>
-                  <th>Parent</th>
-                  <th>👤</th>
-                  <th>📄</th>
-                  <th>🛻</th>
-                  <th>Amazon</th>
-                  <th>👁</th>
-                  <th>Parts Estimate Request</th>
-                  <th>Estimate Comments</th>
-                  <th>Estimate Delay Reason</th>
-                  <th>Time In Queue</th>
-                  <th>RO Num</th>
-                  <th>WO Status</th>
-                  <th>Estimator</th>
-                  <th>Tech</th>
-                  <th>AMZ Id</th>
-                  <th>Make</th>
-                  <th>Assigned Date</th>
-                  <th>Parts PO</th>
-                  <th>Created</th>
-                  <th>Internal Comments</th>
-                  <th>Edit</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">226131</td>
-                  <td class="link">3H3V532C6LF447448</td>
-                  <td>↥↧</td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟥</td>
-                  <td class="link">Update</td>
-                  <td>01h 03m</td>
-                  <td class="link">1132-0017810</td>
-                  <td class="status-work">WORK_IN_PROGRESS</td>
-                  <td class="link">MCameron@ameritflee...</td>
-                  <td class="link">SDebassie@ameritfleet.com</td>
-                  <td>amz-fme2eZwrsf5fan</td>
-                  <td></td>
-                  <td>3/18/2026, 11:01 PM</td>
-                  <td class="link">View</td>
-                  <td>3/18/2026, 4:17 AM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">✎</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">225098</td>
-                  <td class="link">1NPBDJ9X5ND821504</td>
-                  <td></td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟨</td>
-                  <td class="link">Update</td>
-                  <td>00h 34m</td>
-                  <td class="link">1279-0009873</td>
-                  <td class="status-work">WORK_IN_PROGRESS</td>
-                  <td class="link">Vanessa Tapia</td>
-                  <td class="link">APerez4@ameritfleet.com</td>
-                  <td>amz-6b2evnwsabpfya</td>
-                  <td></td>
-                  <td>3/17/2026, 2:16 AM</td>
-                  <td class="link">View</td>
-                  <td>3/16/2026, 2:49 PM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">✎</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">226602</td>
-                  <td class="link">1UJV813A7KA010702</td>
-                  <td></td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟥</td>
-                  <td class="link"><span class="badge-soft">CURRENTLY BUILDING ESTIMATE</span></td>
-                  <td>00h 18m</td>
-                  <td class="link">1134-0010424</td>
-                  <td class="status-work">WORK_IN_PROGRESS</td>
-                  <td class="link">Dena Buskins</td>
-                  <td class="link">JBlaw@ameritfleet.com</td>
-                  <td>amz-d5yzgwh2hb2s...</td>
-                  <td></td>
-                  <td>3/18/2026, 11:47 PM</td>
-                  <td class="link">View</td>
-                  <td>3/13/2026, 7:20 PM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">✎</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">226417</td>
-                  <td class="link">4V4NC9UG2NN318323</td>
-                  <td>↥↧</td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟨</td>
-                  <td class="link">Update</td>
-                  <td>00h 14m</td>
-                  <td class="link">794-00014536</td>
-                  <td class="status-work">WORK_IN_PROGRESS</td>
-                  <td class="link">Marcela Cervantes</td>
-                  <td class="link">GOnate@ameritfleet.com</td>
-                  <td>amz-f15tgu2k4nkf2</td>
-                  <td></td>
-                  <td>3/18/2026, 5:37 PM</td>
-                  <td class="link">View</td>
-                  <td>3/18/2026, 10:16 AM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">✎</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">226603</td>
-                  <td class="link">1GRTP06Z0SJ628488</td>
-                  <td></td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟨</td>
-                  <td class="link">Update</td>
-                  <td>00h 12m</td>
-                  <td class="link">1124-0003887</td>
-                  <td class="status-work">WORK_IN_PROGRESS</td>
-                  <td class="link">Adam Beal</td>
-                  <td class="link">NVazquez@ameritfleet.com</td>
-                  <td>amz-txrb9dgy2dcy</td>
-                  <td></td>
-                  <td>3/18/2026, 11:40 PM</td>
-                  <td class="link">View</td>
-                  <td>3/18/2026, 3:31 PM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">✎</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">226501</td>
-                  <td class="link">3H3V532CDLP446673</td>
-                  <td></td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟨</td>
-                  <td class="link">Update</td>
-                  <td>00h 12m</td>
-                  <td class="link">1121-0005090</td>
-                  <td class="status-work">WORK_IN_PROGRESS</td>
-                  <td class="link">Cameron Berryhill</td>
-                  <td class="link">MLlanesMoreno@ameritfle...</td>
-                  <td>amz-cb2rfkbd7aad7u</td>
-                  <td></td>
-                  <td>3/18/2026, 8:25 PM</td>
-                  <td class="link">View</td>
-                  <td>3/18/2026, 6:47 AM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">✎</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">1FUJPFW2PLNY0001</td>
-                  <td class="link"></td>
-                  <td></td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟨</td>
-                  <td class="link"></td>
-                  <td>00h 10m</td>
-                  <td class="link">1242-0009378</td>
-                  <td class="status-work">WORK_IN_PROGRESS</td>
-                  <td class="link">Assign</td>
-                  <td class="link">MLaw@ameritfleet.com</td>
-                  <td>amz-63pydcu9nwuszg</td>
-                  <td></td>
-                  <td></td>
-                  <td class="link">View</td>
-                  <td>3/18/2026, 2:48 PM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">＋</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">226568</td>
-                  <td class="link">1FUJPFW2PLNY0000</td>
-                  <td></td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟨</td>
-                  <td class="link">Update</td>
-                  <td>00h 09m</td>
-                  <td class="link">902-0001892</td>
-                  <td class="status-approved">ESTIMATE_APPROVED</td>
-                  <td class="link">BHargrave@ameritfleet...</td>
-                  <td class="link">SClendenen@ameritfleet.com</td>
-                  <td>amz-4gktr82pa67bk</td>
-                  <td></td>
-                  <td>3/18/2026, 10:57 PM</td>
-                  <td class="link">View</td>
-                  <td>3/18/2026, 2:59 PM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">✎</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">1UJV5324NL308102</td>
-                  <td class="link"></td>
-                  <td></td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟥</td>
-                  <td class="link">Update</td>
-                  <td>00h 08m</td>
-                  <td class="link">1120-0013306</td>
-                  <td class="status-work">WORK_IN_PROGRESS</td>
-                  <td class="link">Assign</td>
-                  <td class="link">RMartinez5@ameritfleet.com</td>
-                  <td>amz-bf1bawcvgh4mhb</td>
-                  <td></td>
-                  <td></td>
-                  <td class="link">View</td>
-                  <td>3/18/2026, 4:37 PM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">＋</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">1NK7D93X0NJ494398</td>
-                  <td class="link"></td>
-                  <td></td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟨</td>
-                  <td class="link"></td>
-                  <td>00h 08m</td>
-                  <td class="link">960-0007776</td>
-                  <td class="status-pending">ESTIMATE_PENDING</td>
-                  <td class="link">Assign</td>
-                  <td class="link">ARivera4@ameritfleet.com</td>
-                  <td>amz-7zuu7tpkvvb4f3</td>
-                  <td></td>
-                  <td></td>
-                  <td class="link">View</td>
-                  <td>3/18/2026, 6:49 AM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">＋</td>
-                </tr>
-
-                <tr>
-                  <td class="tiny-icon">◔</td>
-                  <td class="link">226777</td>
-                  <td class="link">4V4NC9EH7NN281234</td>
-                  <td></td>
-                  <td class="tiny-icon">👤</td>
-                  <td class="tiny-icon">🗂</td>
-                  <td class="tiny-icon">🧾</td>
-                  <td class="tiny-icon">a</td>
-                  <td class="tiny-icon">◉</td>
-                  <td class="link">View</td>
-                  <td class="tiny-icon">🟨</td>
-                  <td class="link">Need photos</td>
-                  <td>00h 06m</td>
-                  <td class="link">1450-0001775</td>
-                  <td class="status-work">WORK_IN_PROGRESS</td>
-                  <td class="link">Cameron Berryhill</td>
-                  <td class="link">JLopez@ameritfleet.com</td>
-                  <td>amz-f72k8thq9n</td>
-                  <td>Volvo</td>
-                  <td>3/18/2026, 9:14 PM</td>
-                  <td class="link">View</td>
-                  <td>3/18/2026, 8:01 PM</td>
-                  <td class="tiny-icon">💬</td>
-                  <td class="tiny-icon">✎</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="footer-note">Flyproud Portal · Release Notes</div>
       </div>
     </main>
   </div>
 
   <button class="support">❔ Support</button>
+
+  <script>
+    const rows = [
+      {
+        estimateId:"226131",
+        vin:"3H3V532C6LF447448",
+        complaint:"Air leak at foot brake valve",
+        timeInQueue:63,
+        roNum:"1132-0017810",
+        woStatus:"WORK_IN_PROGRESS",
+        estimator:"MCameron@ameritflee...",
+        tech:"SDebassie@ameritfleet.com",
+        amzId:"amz-fme2eZwrsf5fan",
+        make:"Freightliner",
+        assignedDate:"3/18/2026, 11:01 PM",
+        created:"3/18/2026, 4:17 AM",
+        delayReason:"Update",
+        partsReq:"View",
+        bucket:"NEEDS_REVIEW",
+        photos:"No photos uploaded",
+        techNotes:"Found air leak at foot brake valve. Multiple fittings leaking. Dash gauge fittings leaking. Needs repair estimate."
+      },
+      {
+        estimateId:"225098",
+        vin:"1NPBDJ9X5ND821504",
+        complaint:"Steer tires low tread",
+        timeInQueue:34,
+        roNum:"1279-0009873",
+        woStatus:"WORK_IN_PROGRESS",
+        estimator:"Vanessa Tapia",
+        tech:"APerez4@ameritfleet.com",
+        amzId:"amz-6b2evnwsabpfya",
+        make:"Peterbilt",
+        assignedDate:"3/17/2026, 2:16 AM",
+        created:"3/16/2026, 2:49 PM",
+        delayReason:"Update",
+        partsReq:"View",
+        bucket:"ASSIGNED",
+        photos:"2 photos uploaded, no tread photo",
+        techNotes:"Both steer tires at 3/32 and 4/32. Need replacement per DOT."
+      },
+      {
+        estimateId:"226602",
+        vin:"1UJV813A7KA010702",
+        complaint:"Building estimate",
+        timeInQueue:18,
+        roNum:"1134-0010424",
+        woStatus:"WORK_IN_PROGRESS",
+        estimator:"Dena Buskins",
+        tech:"JBlaw@ameritfleet.com",
+        amzId:"amz-d5yzgwh2hb2s",
+        make:"Utility",
+        assignedDate:"3/18/2026, 11:47 PM",
+        created:"3/13/2026, 7:20 PM",
+        delayReason:"CURRENTLY BUILDING ESTIMATE",
+        partsReq:"View",
+        bucket:"ESTIMATE_PENDING",
+        photos:"4 photos uploaded, unit ID photo included",
+        techNotes:"Broken passenger turn signal. Conspicuity tape peeling and damaged. Surface needs cleaned before new tape is applied."
+      },
+      {
+        estimateId:"226417",
+        vin:"4V4NC9UG2NN318323",
+        complaint:"Light and tape damage",
+        timeInQueue:14,
+        roNum:"794-00014536",
+        woStatus:"WORK_IN_PROGRESS",
+        estimator:"Marcela Cervantes",
+        tech:"GOnate@ameritfleet.com",
+        amzId:"amz-f15tgu2k4nkf2",
+        make:"Volvo",
+        assignedDate:"3/18/2026, 5:37 PM",
+        created:"3/18/2026, 10:16 AM",
+        delayReason:"Update",
+        partsReq:"View",
+        bucket:"NEEDS_REVIEW",
+        photos:"3 photos uploaded",
+        techNotes:"Broken passenger turn signal. Reflective tape damaged."
+      },
+      {
+        estimateId:"226568",
+        vin:"1FUJPFW2PLNY0000",
+        complaint:"Approved estimate",
+        timeInQueue:9,
+        roNum:"902-0001892",
+        woStatus:"ESTIMATE_APPROVED",
+        estimator:"BHargrave@ameritfleet...",
+        tech:"SClendenen@ameritfleet.com",
+        amzId:"amz-4gktr82pa67bk",
+        make:"Freightliner",
+        assignedDate:"3/18/2026, 10:57 PM",
+        created:"3/18/2026, 2:59 PM",
+        delayReason:"Update",
+        partsReq:"View",
+        bucket:"ESTIMATE_APPROVED",
+        photos:"5 photos uploaded, complete",
+        techNotes:"Inspected and confirmed hub oil leak at right rear wheel end. Wheel seal leaking and brake contamination present. Recommend wheel seal replacement and clean brake area."
+      }
+    ];
+
+    let currentTab = "NEEDS_REVIEW";
+    let sortKey = "timeInQueue";
+    let sortDir = "desc";
+    let selectedRow = null;
+
+    function counts(){
+      return {
+        NEEDS_REVIEW: rows.filter(r=>r.bucket==="NEEDS_REVIEW").length,
+        ASSIGNED: rows.filter(r=>r.bucket==="ASSIGNED").length,
+        ESTIMATE_PENDING: rows.filter(r=>r.bucket==="ESTIMATE_PENDING").length,
+        ISSUES_RESUBMIT: rows.filter(r=>r.bucket==="ISSUES_RESUBMIT").length,
+        ESTIMATE_APPROVED: rows.filter(r=>r.bucket==="ESTIMATE_APPROVED").length
+      };
+    }
+
+    function renderTabs(){
+      const c = counts();
+      const tabs = [
+        ["NEEDS_REVIEW","NEEDS REVIEW",c.NEEDS_REVIEW],
+        ["ASSIGNED","ASSIGNED",c.ASSIGNED],
+        ["ESTIMATE_PENDING","ESTIMATE PENDING",c.ESTIMATE_PENDING],
+        ["ISSUES_RESUBMIT","ISSUES/RESUBMIT",c.ISSUES_RESUBMIT],
+        ["ESTIMATE_APPROVED","ESTIMATE APPROVED",c.ESTIMATE_APPROVED]
+      ];
+      document.getElementById("tabs").innerHTML = tabs.map(t=>`
+        <div class="tab ${currentTab===t[0]?'active':''}" onclick="switchTab('${t[0]}')">${t[1]} <span class="count">${t[2]}</span></div>
+      `).join("");
+    }
+
+    function switchTab(tab){
+      currentTab = tab;
+      document.getElementById("statusFilter").value = "ALL";
+      renderTabs();
+      renderGrid();
+    }
+
+    function sortBy(key){
+      if(sortKey === key){
+        sortDir = sortDir === "asc" ? "desc" : "asc";
+      } else {
+        sortKey = key;
+        sortDir = "asc";
+      }
+      renderGrid();
+    }
+
+    function bucketLabel(bucket){
+      if(bucket==="NEEDS_REVIEW") return "NEEDS REVIEW";
+      if(bucket==="ASSIGNED") return "ASSIGNED";
+      if(bucket==="ESTIMATE_PENDING") return "ESTIMATE PENDING";
+      if(bucket==="ISSUES_RESUBMIT") return "ISSUES/RESUBMIT";
+      if(bucket==="ESTIMATE_APPROVED") return "ESTIMATE APPROVED";
+      return bucket;
+    }
+
+    function statusCell(r){
+      if(r.woStatus==="ESTIMATE_APPROVED") return `<span class="status-approved">${r.woStatus}</span>`;
+      if(r.bucket==="NEEDS_REVIEW") return `<span class="status-review">${r.woStatus}</span>`;
+      if(r.bucket==="ISSUES_RESUBMIT") return `<span class="status-return">${r.woStatus}</span>`;
+      if(r.bucket==="ESTIMATE_PENDING") return `<span class="status-pending">${r.woStatus}</span>`;
+      return `<span class="status-work">${r.woStatus}</span>`;
+    }
+
+    function renderGrid(){
+      const q = document.getElementById("globalSearch").value.toLowerCase().trim();
+      const statusFilter = document.getElementById("statusFilter").value;
+
+      let filtered = rows.filter(r => r.bucket === currentTab);
+
+      if(statusFilter !== "ALL"){
+        filtered = filtered.filter(r => r.bucket === statusFilter);
+      }
+
+      if(q){
+        filtered = filtered.filter(r =>
+          Object.values(r).join(" ").toLowerCase().includes(q)
+        );
+      }
+
+      filtered.sort((a,b)=>{
+        let va = a[sortKey], vb = b[sortKey];
+        if(typeof va === "number" && typeof vb === "number"){
+          return sortDir==="asc" ? va-vb : vb-va;
+        }
+        va = String(va).toLowerCase();
+        vb = String(vb).toLowerCase();
+        if(va < vb) return sortDir==="asc" ? -1 : 1;
+        if(va > vb) return sortDir==="asc" ? 1 : -1;
+        return 0;
+      });
+
+      document.getElementById("gridBody").innerHTML = filtered.map((r, idx)=>`
+        <tr onclick="openEstimate('${r.estimateId}')" style="cursor:pointer">
+          <td class="link">${r.estimateId}</td>
+          <td class="link">${r.vin}</td>
+          <td>${formatMinutes(r.timeInQueue)}</td>
+          <td class="link">${r.roNum}</td>
+          <td>${statusCell(r)}</td>
+          <td class="link">${r.estimator}</td>
+          <td class="link">${r.tech}</td>
+          <td>${r.amzId}</td>
+          <td>${r.make||""}</td>
+          <td>${r.assignedDate||""}</td>
+          <td class="link">View</td>
+          <td>${r.created||""}</td>
+          <td>${r.delayReason||""}</td>
+          <td class="link">${r.partsReq||""}</td>
+          <td>${bucketLabel(r.bucket)}</td>
+        </tr>
+      `).join("") || `<tr><td colspan="15">No rows found.</td></tr>`;
+    }
+
+    function formatMinutes(mins){
+      const h = Math.floor(mins/60);
+      const m = mins % 60;
+      return `${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m`;
+    }
+
+    function openEstimate(id){
+      selectedRow = rows.find(r => r.estimateId === id);
+      if(!selectedRow) return;
+      document.getElementById("queueView").classList.add("hidden");
+      document.getElementById("estimateView").classList.remove("hidden");
+
+      document.getElementById("workTitle").innerText = `RO ${selectedRow.roNum} · ${selectedRow.complaint}`;
+      document.getElementById("workSub").innerText = `${selectedRow.vin} · ${selectedRow.make} · Estimator: ${selectedRow.estimator}`;
+      document.getElementById("complaintInput").value = selectedRow.complaint || "";
+      document.getElementById("unitInput").value = `${selectedRow.make || ""} ${selectedRow.vin}`.trim();
+      document.getElementById("techNotesInput").value = selectedRow.techNotes || "";
+      document.getElementById("photosInput").value = selectedRow.photos || "";
+      document.getElementById("customerNotesOutput").value = selectedRow.customerNotes || "";
+      renderStatusBadge();
+      renderSubmissionPacket();
+      renderParts([]);
+      renderLabor([]);
+      document.getElementById("qualityResult").innerHTML = "Run the assistant to review note quality.";
+      document.getElementById("qualityIssues").innerHTML = "";
+      document.getElementById("readyBox").className = "amazon-hold";
+      document.getElementById("readyBox").innerText = "Not evaluated yet.";
+    }
+
+    function goBack(){
+      document.getElementById("estimateView").classList.add("hidden");
+      document.getElementById("queueView").classList.remove("hidden");
+      renderTabs();
+      renderGrid();
+    }
+
+    function renderStatusBadge(){
+      let cls = "review";
+      let txt = bucketLabel(selectedRow.bucket);
+      if(selectedRow.bucket==="ESTIMATE_APPROVED") cls = "approved";
+      if(selectedRow.bucket==="ISSUES_RESUBMIT") cls = "returned";
+      if(selectedRow.bucket==="ESTIMATE_PENDING") cls = "hold";
+      document.getElementById("statusBadge").innerHTML = `<span class="badge ${cls}">${txt}</span>`;
+    }
+
+    function renderParts(parts){
+      const body = document.getElementById("partsBody");
+      body.innerHTML = parts.length ? parts.map(p=>`
+        <tr><td>${p.qty}</td><td>${p.part}</td><td>${p.desc}</td></tr>
+      `).join("") : `<tr><td colspan="3">No parts added yet.</td></tr>`;
+    }
+
+    function renderLabor(labor){
+      const body = document.getElementById("laborBody");
+      body.innerHTML = labor.length ? labor.map(l=>`
+        <tr><td>${l.hours}</td><td>${l.op}</td><td>${l.note}</td></tr>
+      `).join("") : `<tr><td colspan="3">No labor added yet.</td></tr>`;
+    }
+
+    function analyzeNotes(notes, photos){
+      const n = notes.toLowerCase();
+      const p = photos.toLowerCase();
+      const issues = [];
+      let customer = "Inspection performed and repairs are required based on technician findings.";
+      const parts = [];
+      const labor = [];
+
+      const hasInspect = n.includes("inspect") || n.includes("found") || n.includes("confirmed") || n.includes("diagnos");
+      const hasFailure = /(leak|broken|damaged|worn|cracked|low tread|fault|inop|chafing|peeling|seized|contaminated)/.test(n);
+      const hasLocation = /(left|right|rear|front|passenger|driver|foot brake valve|wheel seal|turn signal|tire|hub|tape|gauge|fitting)/.test(n);
+      const hasAction = /(replace|repair|remove|install|adjust|clean)/.test(n);
+      const hasPhotos = p.includes("photo") || p.includes("uploaded");
+      const hasUnitPhoto = p.includes("unit id");
+      const noteLength = notes.trim().length;
+
+      if(noteLength < 50) issues.push("Technician notes are too short to justify estimate creation.");
+      if(!hasInspect) issues.push("Diagnostic/finding language is missing.");
+      if(!hasFailure) issues.push("Failed condition is not clearly described.");
+      if(!hasLocation) issues.push("Component location is not clear.");
+      if(!hasAction) issues.push("Repair action is not identified.");
+      if(!hasPhotos) issues.push("Supporting photos are not referenced.");
+      if(hasPhotos && !hasUnitPhoto) issues.push("Unit ID photo is not referenced.");
+
+      if(n.includes("air leak") || n.includes("fitting") || n.includes("gauge")){
+        customer = "Inspection found air system leakage at the reported components. Repairs are required to restore proper air system operation and prevent further system performance issues.";
+        parts.push({qty:2, part:"AIR-FIT-01", desc:"Air line fittings"});
+        if(n.includes("gauge")) parts.push({qty:1, part:"DASH-GAUGE-01", desc:"Dash air gauge assembly"});
+        labor.push({hours:"1.0", op:"Diagnostic confirmation", note:"Confirm leak source and system integrity"});
+        labor.push({hours:"1.5", op:"Replace leaking fittings", note:"Remove and replace failed air fittings"});
+        if(n.includes("gauge")) labor.push({hours:"1.0", op:"Replace gauge", note:"Replace leaking/failed dash gauge component"});
+      }
+
+      if(n.includes("tire") || n.includes("3/32") || n.includes("4/32") || n.includes("low tread")){
+        customer = "Inspection found tire condition below acceptable tread depth limits. Tire replacement is required to maintain safe operation and DOT compliance.";
+        parts.push({qty:2, part:"STEER-TIRE", desc:"Steer tire replacement"});
+        labor.push({hours:"0.5", op:"Verify tread depth", note:"Confirm tread measurements and condition"});
+        labor.push({hours:"1.2", op:"Replace tire(s)", note:"Mount, balance, and torque to spec"});
+      }
+
+      if(n.includes("turn signal") || n.includes("light")){
+        customer = "Inspection found a failed lighting component affecting proper operation. Replacement is required to restore lighting compliance.";
+        parts.push({qty:1, part:"TURN-SIGNAL-01", desc:"Turn signal/light assembly"});
+        labor.push({hours:"0.4", op:"Replace light assembly", note:"Remove and replace failed lighting component"});
+      }
+
+      if(n.includes("conspicuity tape") || n.includes("reflective tape") || n.includes("tape peeling")){
+        parts.push({qty:1, part:"TAPE-RED-WHITE", desc:"Conspicuity tape roll"});
+        labor.push({hours:"0.5", op:"Replace conspicuity tape", note:"Clean surface and apply new tape"});
+      }
+
+      if(n.includes("wheel seal") || n.includes("hub oil leak") || n.includes("contaminated")){
+        customer = "Inspection found a leaking wheel end seal with contamination present in the affected area. Repairs are required to correct the leak and restore safe operation.";
+        parts.push({qty:1, part:"WHEEL-SEAL", desc:"Wheel seal"});
+        labor.push({hours:"1.0", op:"Confirm wheel end leak", note:"Inspect source of leak and affected brake area"});
+        labor.push({hours:"2.0", op:"Replace wheel seal", note:"Disassemble wheel end and replace leaking seal"});
+      }
+
+      if(parts.length===0 && labor.length===0){
+        labor.push({hours:"1.0", op:"Manual estimate review", note:"AI could not determine exact repair from notes"});
+      }
+
+      const ready = issues.length === 0 && parts.length > 0 && labor.length > 0 && customer.length > 30;
+      return {issues, customer, parts, labor, ready};
+    }
+
+    function runAI(){
+      if(!selectedRow) return;
+      const notes = document.getElementById("techNotesInput").value;
+      const photos = document.getElementById("photosInput").value;
+      const result = analyzeNotes(notes, photos);
+
+      selectedRow.techNotes = notes;
+      selectedRow.photos = photos;
+      selectedRow.customerNotes = result.customer;
+
+      document.getElementById("customerNotesOutput").value = result.customer;
+      document.getElementById("qualityResult").innerHTML = result.ready
+        ? `<span class="good">Notes are acceptable for estimate drafting.</span>`
+        : `<span class="bad">Notes are not sufficient for submission.</span>`;
+
+      document.getElementById("qualityIssues").innerHTML = result.issues.map(i=>`<li>${i}</li>`).join("");
+
+      renderParts(result.parts);
+      renderLabor(result.labor);
+
+      if(result.ready){
+        selectedRow.bucket = "NEEDS_REVIEW";
+        selectedRow.woStatus = "READY_FOR_SUBMISSION_REVIEW";
+        document.getElementById("readyBox").className = "amazon-ready";
+        document.getElementById("readyBox").innerHTML = `
+          <strong>Ready to submit for Amazon review.</strong><br>
+          Tech notes, customer notes, parts, labor, and photo references passed the basic checks.
+        `;
+      } else {
+        selectedRow.bucket = "ISSUES_RESUBMIT";
+        selectedRow.woStatus = "RETURN_TO_TECH";
+        document.getElementById("readyBox").className = "amazon-hold";
+        document.getElementById("readyBox").innerHTML = `
+          <strong>Not ready for Amazon submission.</strong><br>
+          This estimate should be returned to the technician for improved notes, photos, or diagnostic detail.
+        `;
+      }
+
+      selectedRow.parts = result.parts;
+      selectedRow.labor = result.labor;
+      renderStatusBadge();
+      renderSubmissionPacket();
+    }
+
+    function renderSubmissionPacket(){
+      if(!selectedRow) return;
+      document.getElementById("packetRO").innerText = selectedRow.roNum || "";
+      document.getElementById("packetStatus").innerText = selectedRow.woStatus || "";
+      document.getElementById("packetNotes").innerText = selectedRow.customerNotes || "No customer notes generated";
+      document.getElementById("packetParts").innerText = selectedRow.parts ? selectedRow.parts.length : 0;
+      document.getElementById("packetLabor").innerText = selectedRow.labor ? selectedRow.labor.length : 0;
+      document.getElementById("packetResub").innerText = selectedRow.bucket === "ISSUES_RESUBMIT" ? "Yes" : "No";
+    }
+
+    function saveCurrent(){
+      if(!selectedRow) return;
+      selectedRow.complaint = document.getElementById("complaintInput").value;
+      alert("Estimate saved.");
+      renderGrid();
+    }
+
+    function sendBackToTech(){
+      if(!selectedRow) return;
+      selectedRow.bucket = "ISSUES_RESUBMIT";
+      selectedRow.woStatus = "RETURN_TO_TECH";
+      renderStatusBadge();
+      renderSubmissionPacket();
+      document.getElementById("readyBox").className = "amazon-hold";
+      document.getElementById("readyBox").innerHTML = `<strong>Returned to tech.</strong><br>Please add better diagnostic details, affected component location, repair action, and photo support.`;
+    }
+
+    function markReady(){
+      if(!selectedRow) return;
+      if(!selectedRow.parts || !selectedRow.labor || !selectedRow.customerNotes){
+        alert("Run AI first so the estimate can be built.");
+        return;
+      }
+      if(selectedRow.bucket === "ISSUES_RESUBMIT"){
+        alert("This RO is still missing required information.");
+        return;
+      }
+      selectedRow.bucket = "NEEDS_REVIEW";
+      selectedRow.woStatus = "READY_FOR_SUBMISSION_REVIEW";
+      renderStatusBadge();
+      renderSubmissionPacket();
+      document.getElementById("readyBox").className = "amazon-ready";
+      document.getElementById("readyBox").innerHTML = `<strong>Marked ready.</strong><br>This estimate is staged for Amazon submission review.`;
+    }
+
+    function submitAmazon(){
+      if(!selectedRow) return;
+      if(selectedRow.bucket === "ISSUES_RESUBMIT"){
+        alert("Cannot submit. This RO needs to be returned to tech.");
+        return;
+      }
+      if(!selectedRow.parts || !selectedRow.labor || !selectedRow.customerNotes){
+        alert("Cannot submit. Build the estimate first.");
+        return;
+      }
+      selectedRow.bucket = "ESTIMATE_APPROVED";
+      selectedRow.woStatus = "ESTIMATE_APPROVED";
+      renderStatusBadge();
+      renderSubmissionPacket();
+      document.getElementById("readyBox").className = "amazon-ready";
+      document.getElementById("readyBox").innerHTML = `<strong>Submitted to Amazon.</strong><br>The estimate packet is complete and marked as approved.`;
+      alert("Estimate submitted to Amazon.");
+    }
+
+    document.getElementById("globalSearch").addEventListener("input", renderGrid);
+    document.getElementById("statusFilter").addEventListener("change", renderGrid);
+
+    renderTabs();
+    renderGrid();
+  </script>
 </body>
 </html>
