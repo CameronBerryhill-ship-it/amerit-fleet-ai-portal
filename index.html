@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
- <h1>Flyproud AI Portal</h1>
+  <title>Flyproud AI Portal v4 🚀</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root{
@@ -44,7 +44,7 @@
     }
     .layout{
       display:grid;
-      grid-template-columns: 320px 1fr;
+      grid-template-columns:320px 1fr;
       gap:16px;
       padding:16px;
     }
@@ -94,7 +94,7 @@
     .badge.hold{background:var(--yellow);color:black}
     .badge.review{background:var(--blue);color:black}
     .badge.approved{background:var(--green);color:black}
-    .badge.rejected{background:var(--red);color:white}
+    .badge.returned{background:var(--red);color:white}
     .grid{
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -156,6 +156,7 @@
       border:1px solid var(--line);
       color:var(--muted);
       font-size:12px;
+      display:inline-block;
     }
     .top-metrics{
       display:grid;
@@ -197,8 +198,8 @@
 </head>
 <body>
   <div class="header">
-    <h1>Amerit Fleet AI Portal</h1>
-    <p>AI-assisted service writer workflow for repair review, compliance, and estimate preparation</p>
+    <h1>Flyproud AI Portal</h1>
+    <p>Flyproud AI workflow for repair review, compliance, and estimate preparation</p>
   </div>
 
   <div class="layout">
@@ -207,7 +208,7 @@
         <h3>RO Queue</h3>
         <div class="muted">Tap a repair order to review and run workflow.</div>
         <div style="margin-top:12px;">
-          <input id="searchBox" placeholder="Search unit / complaint / RO..." oninput="renderROList()" />
+          <input id="searchBox" placeholder="Search unit, complaint, or RO..." oninput="renderROList()" />
         </div>
         <div style="margin-top:12px;">
           <select id="statusFilter" onchange="renderROList()">
@@ -225,7 +226,7 @@
       <div class="card">
         <h3>Add New RO</h3>
         <input id="newRO" placeholder="RO Number" style="margin-bottom:10px;" />
-        <input id="newUnit" placeholder="Unit / VIN" style="margin-bottom:10px;" />
+        <input id="newUnit" placeholder="Unit or VIN" style="margin-bottom:10px;" />
         <input id="newComplaint" placeholder="Complaint" style="margin-bottom:10px;" />
         <textarea id="newNotes" placeholder="Technician notes"></textarea>
         <div class="actions">
@@ -345,7 +346,7 @@
       if(status === "Hold - Missing Info") return "hold";
       if(status === "Ready for Review") return "review";
       if(status === "Approved") return "approved";
-      return "rejected";
+      return "returned";
     }
 
     function renderROList(){
@@ -401,6 +402,7 @@
       document.getElementById("techNotes").value = ro.techNotes || "";
       document.getElementById("customerNotes").value = ro.customerNotes || "";
       renderTimeline();
+
       if(!ro.customerNotes){
         document.getElementById("complianceResults").innerHTML = `<span class="muted">Run workflow to evaluate compliance.</span>`;
         document.getElementById("estimateSections").innerHTML = `<span class="muted">Run workflow to generate estimate sections.</span>`;
@@ -441,7 +443,7 @@
       if(notes.includes("air leak")){
         customer = "Inspection found air system leaks requiring repair to restore proper brake and air system operation. Failed fittings and related components will need repair or replacement based on technician findings.";
         sections.push("Section 1 – Diagnose air leak concern");
-        sections.push("Section 2 – Replace leaking air fittings / valve components");
+        sections.push("Section 2 – Replace leaking air fittings or valve components");
       }
 
       if(notes.includes("tire") || notes.includes("3/32") || notes.includes("4/32")){
@@ -468,7 +470,7 @@
         issues.push("Diagnostic wording is limited or missing.");
       }
 
-      let newStatus = issues.length ? "Hold - Missing Info" : "Ready for Review";
+      const newStatus = issues.length ? "Hold - Missing Info" : "Ready for Review";
 
       ro.customerNotes = customer;
       ro.status = newStatus;
