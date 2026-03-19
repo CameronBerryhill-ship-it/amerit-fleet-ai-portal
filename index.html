@@ -2,537 +2,822 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Flyproud AI Portal v4 🚀</title>
+  <title>Flyproud V5</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root{
-      --bg:#0f172a;
-      --panel:#111827;
-      --card:#1e293b;
-      --card-2:#0b1220;
-      --line:#334155;
-      --text:#f8fafc;
-      --muted:#94a3b8;
-      --green:#22c55e;
-      --yellow:#f59e0b;
-      --red:#ef4444;
-      --blue:#38bdf8;
+      --nav:#343545;
+      --nav-2:#2d2e3c;
+      --nav-3:#252633;
+      --gold:#e0b321;
+      --gold-2:#c89d11;
+      --bg:#efefef;
+      --panel:#ffffff;
+      --line:#d9d9d9;
+      --text:#3f3f48;
+      --muted:#7c7c88;
+      --row:#fafafa;
+      --row-alt:#f4f4f4;
+      --green:#77b255;
+      --red:#d9534f;
+      --blue:#5da9e9;
     }
+
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family:Arial, Helvetica, sans-serif;
       background:var(--bg);
       color:var(--text);
     }
-    .header{
-      background:var(--panel);
-      padding:18px 20px;
-      border-bottom:1px solid var(--line);
-      position:sticky;
-      top:0;
-      z-index:5;
-    }
-    .header h1{
-      margin:0;
-      font-size:22px;
-    }
-    .header p{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .layout{
+
+    .app{
       display:grid;
-      grid-template-columns:320px 1fr;
-      gap:16px;
-      padding:16px;
+      grid-template-columns: 176px 1fr;
+      grid-template-rows: 38px 1fr;
+      min-height:100vh;
     }
-    .sidebar,.main{
-      min-width:0;
-    }
-    .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:14px;
-      margin-bottom:16px;
-    }
-    .card h2,.card h3{
-      margin:0 0 12px;
-    }
-    .muted{
-      color:var(--muted);
-      font-size:13px;
-    }
-    .ro-item{
-      background:var(--card-2);
-      border:1px solid var(--line);
-      border-radius:12px;
-      padding:12px;
-      margin-bottom:10px;
-      cursor:pointer;
-    }
-    .ro-item.active{
-      border-color:var(--blue);
-      box-shadow:0 0 0 1px var(--blue) inset;
-    }
-    .row{
+
+    .topbar{
+      grid-column:1 / -1;
+      background:var(--nav);
+      color:#fff;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
-    }
-    .badge{
-      display:inline-block;
-      padding:5px 10px;
-      border-radius:999px;
+      padding:0 12px;
       font-size:12px;
-      font-weight:bold;
+      border-bottom:1px solid #454658;
     }
-    .badge.new{background:#1d4ed8;color:white}
-    .badge.hold{background:var(--yellow);color:black}
-    .badge.review{background:var(--blue);color:black}
-    .badge.approved{background:var(--green);color:black}
-    .badge.returned{background:var(--red);color:white}
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-    }
-    .full{
-      grid-column:1 / -1;
-    }
-    textarea, input, select{
-      width:100%;
-      background:#0f172a;
-      color:var(--text);
-      border:1px solid var(--line);
-      border-radius:10px;
-      padding:12px;
-      font-size:14px;
-    }
-    textarea{
-      min-height:120px;
-      resize:vertical;
-    }
-    button{
-      border:none;
-      border-radius:10px;
-      padding:12px 14px;
-      font-weight:bold;
-      cursor:pointer;
-      font-size:14px;
-    }
-    .btn-green{background:var(--green); color:black;}
-    .btn-blue{background:var(--blue); color:black;}
-    .btn-yellow{background:var(--yellow); color:black;}
-    .btn-red{background:var(--red); color:white;}
-    .btn-dark{background:#334155; color:white;}
-    .actions{
+
+    .topbar-left{
       display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
+      align-items:center;
+      gap:12px;
+      font-weight:bold;
     }
-    .section{
-      background:var(--card-2);
-      border:1px solid var(--line);
-      border-radius:12px;
-      padding:12px;
-      margin-top:10px;
+
+    .hamburger{
+      font-size:18px;
+      opacity:.9;
     }
-    ul{
-      margin:8px 0 0 18px;
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:16px;
+      font-weight:bold;
+    }
+
+    .brand-mark{
+      width:14px;
+      height:14px;
+      border-left:4px solid var(--gold);
+      border-top:4px solid #fff;
+      border-bottom:4px solid var(--gold);
+      border-right:4px solid transparent;
+      transform:skewX(-8deg);
+    }
+
+    .topbar-right{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      white-space:nowrap;
+    }
+
+    .user-pill{
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      background:#f1f1f1;
+      color:#333;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:bold;
+      font-size:11px;
+    }
+
+    .sidebar{
+      background:var(--nav-2);
+      color:#fff;
+      overflow:auto;
+      border-right:1px solid #404152;
+    }
+
+    .side-section-title{
+      background:var(--nav-3);
+      color:#fff;
+      font-size:11px;
+      font-weight:bold;
+      padding:10px 14px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      border-bottom:1px solid #3a3b4b;
+    }
+
+    .side-group{
+      padding:8px 0;
+      border-bottom:1px solid #3b3c4c;
+    }
+
+    .side-item,
+    .side-subitem{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      font-size:11px;
+      color:#fff;
+      cursor:pointer;
+    }
+
+    .side-item:hover,
+    .side-subitem:hover{
+      background:#3a3b4b;
+    }
+
+    .side-subitem{
+      padding-left:34px;
+      opacity:.95;
+    }
+
+    .side-subitem.active{
+      background:#3b3c4d;
+      border-left:4px solid var(--gold);
+      padding-left:30px;
+    }
+
+    .icon-dot{
+      width:10px;
+      text-align:center;
+      color:#d8d8de;
+      font-size:12px;
+    }
+
+    .main{
+      overflow:auto;
+      background:var(--bg);
       padding:0;
     }
-    li{
-      margin:6px 0;
+
+    .content{
+      padding:14px 22px 12px;
     }
-    .pill{
-      padding:4px 8px;
-      border-radius:999px;
-      background:#0f172a;
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:12px;
-      display:inline-block;
+
+    .breadcrumb{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:13px;
+      margin-bottom:12px;
+      color:#6c6c77;
     }
-    .top-metrics{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:12px;
-      margin-bottom:16px;
-    }
-    .metric{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:14px;
-    }
-    .metric .num{
-      font-size:26px;
+
+    .crumb-current{
+      color:#5b5b67;
       font-weight:bold;
-      margin-top:6px;
     }
-    .timeline-entry{
-      padding:10px 0;
-      border-bottom:1px solid var(--line);
+
+    .crumb-folder{
+      color:var(--gold-2);
       font-size:14px;
     }
-    .timeline-entry:last-child{
-      border-bottom:none;
+
+    .search-panel{
+      background:#f6f6f6;
+      border:1px solid var(--line);
+      padding:8px 10px 10px;
+      margin-bottom:10px;
     }
-    @media (max-width: 900px){
-      .layout{
-        grid-template-columns:1fr;
+
+    .search-label{
+      font-size:10px;
+      color:#666;
+      margin-bottom:4px;
+    }
+
+    .search-row{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      max-width:500px;
+    }
+
+    .search-row input{
+      flex:1;
+      height:30px;
+      border:1px solid #cfcfcf;
+      background:#fff;
+      padding:0 10px;
+      font-size:12px;
+      outline:none;
+    }
+
+    .search-btn{
+      width:28px;
+      height:28px;
+      border:none;
+      background:var(--gold);
+      cursor:pointer;
+      border-radius:2px;
+      font-weight:bold;
+    }
+
+    .tabbar{
+      display:flex;
+      gap:1px;
+      align-items:flex-end;
+      margin-bottom:8px;
+      flex-wrap:wrap;
+    }
+
+    .tab{
+      background:#f4f4f4;
+      border:1px solid var(--line);
+      border-bottom:none;
+      padding:8px 10px;
+      font-size:10px;
+      color:#666;
+      min-height:30px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+
+    .tab.active{
+      background:#fff;
+      color:#444;
+      font-weight:bold;
+    }
+
+    .count{
+      min-width:16px;
+      height:16px;
+      border-radius:999px;
+      background:var(--gold);
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:10px;
+      font-weight:bold;
+      padding:0 4px;
+    }
+
+    .grid-shell{
+      background:#fff;
+      border:1px solid var(--line);
+      position:relative;
+    }
+
+    .grid-topnote{
+      font-size:10px;
+      color:#868686;
+      padding:8px 10px;
+      border-bottom:1px solid var(--line);
+      background:#fafafa;
+    }
+
+    .grid-wrap{
+      overflow:auto;
+      max-height:460px;
+    }
+
+    table{
+      border-collapse:collapse;
+      width:2200px;
+      font-size:10px;
+      color:#5b5b66;
+    }
+
+    thead th{
+      position:sticky;
+      top:0;
+      background:#fff;
+      z-index:2;
+      border-bottom:1px solid var(--line);
+      border-right:1px solid #ececec;
+      padding:8px 6px;
+      text-align:left;
+      white-space:nowrap;
+      font-weight:bold;
+    }
+
+    tbody td{
+      border-bottom:1px solid #e7e7e7;
+      border-right:1px solid #efefef;
+      padding:7px 6px;
+      white-space:nowrap;
+      background:#fff;
+    }
+
+    tbody tr:nth-child(even) td{
+      background:#fcfcfc;
+    }
+
+    tbody tr:hover td{
+      background:#fffceb;
+    }
+
+    .link{
+      color:#d7a316;
+      text-decoration:underline;
+      cursor:pointer;
+    }
+
+    .tiny-icon{
+      color:#d3a116;
+      font-size:11px;
+    }
+
+    .status-work{
+      color:#333;
+      font-weight:bold;
+    }
+
+    .status-approved{
+      color:var(--green);
+      font-weight:bold;
+    }
+
+    .status-pending{
+      color:#a97700;
+      font-weight:bold;
+    }
+
+    .footer-note{
+      text-align:center;
+      font-size:10px;
+      color:#777;
+      margin-top:4px;
+    }
+
+    .support{
+      position:fixed;
+      right:16px;
+      bottom:12px;
+      background:#176b6e;
+      color:#fff;
+      border:none;
+      border-radius:16px;
+      padding:8px 12px;
+      font-size:11px;
+      font-weight:bold;
+      box-shadow:0 2px 6px rgba(0,0,0,.18);
+    }
+
+    .badge-soft{
+      display:inline-block;
+      padding:2px 6px;
+      border-radius:10px;
+      background:#fff7d7;
+      color:#8f6d00;
+      font-weight:bold;
+      font-size:10px;
+    }
+
+    @media (max-width: 1100px){
+      .app{
+        grid-template-columns: 1fr;
       }
-      .grid{
-        grid-template-columns:1fr;
+      .sidebar{
+        display:none;
       }
-      .top-metrics{
-        grid-template-columns:1fr 1fr;
+      .content{
+        padding:10px;
+      }
+      .search-row{
+        max-width:none;
       }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>Flyproud AI Portal</h1>
-    <p>Flyproud AI workflow for repair review, compliance, and estimate preparation</p>
-  </div>
-
-  <div class="layout">
-    <div class="sidebar">
-      <div class="card">
-        <h3>RO Queue</h3>
-        <div class="muted">Tap a repair order to review and run workflow.</div>
-        <div style="margin-top:12px;">
-          <input id="searchBox" placeholder="Search unit, complaint, or RO..." oninput="renderROList()" />
+  <div class="app">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="hamburger">☰</div>
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <span>Flyproud</span>
         </div>
-        <div style="margin-top:12px;">
-          <select id="statusFilter" onchange="renderROList()">
-            <option value="all">All statuses</option>
-            <option value="New Submission">New Submission</option>
-            <option value="Hold - Missing Info">Hold - Missing Info</option>
-            <option value="Ready for Review">Ready for Review</option>
-            <option value="Approved">Approved</option>
-            <option value="Returned to Tech">Returned to Tech</option>
-          </select>
-        </div>
-        <div id="roList" style="margin-top:14px;"></div>
       </div>
-
-      <div class="card">
-        <h3>Add New RO</h3>
-        <input id="newRO" placeholder="RO Number" style="margin-bottom:10px;" />
-        <input id="newUnit" placeholder="Unit or VIN" style="margin-bottom:10px;" />
-        <input id="newComplaint" placeholder="Complaint" style="margin-bottom:10px;" />
-        <textarea id="newNotes" placeholder="Technician notes"></textarea>
-        <div class="actions">
-          <button class="btn-green" onclick="addRO()">Add RO</button>
-        </div>
+      <div class="topbar-right">
+        <span>🔗 TMW</span>
+        <span>🔔</span>
+        <span>Cameron Berryhill</span>
+        <div class="user-pill">CB</div>
       </div>
     </div>
 
-    <div class="main">
-      <div class="top-metrics">
-        <div class="metric">
-          <div class="muted">Open ROs</div>
-          <div class="num" id="metricOpen">0</div>
-        </div>
-        <div class="metric">
-          <div class="muted">Missing Info</div>
-          <div class="num" id="metricHold">0</div>
-        </div>
-        <div class="metric">
-          <div class="muted">Ready for Review</div>
-          <div class="num" id="metricReview">0</div>
-        </div>
-        <div class="metric">
-          <div class="muted">Approved</div>
-          <div class="num" id="metricApproved">0</div>
-        </div>
+    <aside class="sidebar">
+      <div class="side-section-title">🗂 CUSTOMERS</div>
+
+      <div class="side-group">
+        <div class="side-item"><span class="icon-dot">◔</span> DASHBOARD</div>
+        <div class="side-item"><span class="icon-dot">📝</span> ESTIMATES</div>
       </div>
 
-      <div class="card">
-        <div class="row">
-          <div>
-            <h2 id="detailTitle">Select an RO</h2>
-            <div class="muted" id="detailMeta">No repair order selected</div>
-          </div>
-          <div id="detailBadge"></div>
-        </div>
+      <div class="side-group">
+        <div class="side-item"><span class="icon-dot">a</span> AMAZON</div>
+        <div class="side-subitem"><span class="icon-dot">🚚</span> MIDDLE MILE</div>
+        <div class="side-subitem"><span class="icon-dot">⚙</span> FM LINKS</div>
+        <div class="side-subitem"><span class="icon-dot">▦</span> ORDERS</div>
+        <div class="side-subitem active"><span class="icon-dot">🧾</span> ESTIMATES</div>
+        <div class="side-subitem"><span class="icon-dot">👤</span> SERVICE ADVISORS</div>
+        <div class="side-subitem"><span class="icon-dot">🔍</span> SEARCH</div>
+        <div class="side-subitem"><span class="icon-dot">🗺</span> SERVICE MAPPING</div>
       </div>
 
-      <div class="grid">
-        <div class="card">
-          <h3>Technician Notes</h3>
-          <textarea id="techNotes"></textarea>
-          <div class="actions">
-            <button class="btn-green" onclick="runAIWorkflow()">Run AI Workflow</button>
-            <button class="btn-dark" onclick="saveNotes()">Save Notes</button>
-          </div>
+      <div class="side-group">
+        <div class="side-item"><span class="icon-dot">🚛</span> LAST MILE</div>
+        <div class="side-subitem"><span class="icon-dot">⚙</span> FM LINKS</div>
+        <div class="side-subitem"><span class="icon-dot">▦</span> ORDERS</div>
+        <div class="side-subitem"><span class="icon-dot">⊘</span> CANCELED ORDERS</div>
+        <div class="side-subitem"><span class="icon-dot">🧾</span> ESTIMATES V2</div>
+        <div class="side-subitem"><span class="icon-dot">👤</span> SERVICE ADVISORS</div>
+        <div class="side-subitem"><span class="icon-dot">🔍</span> SEARCH</div>
+        <div class="side-subitem"><span class="icon-dot">✎</span> CANCEL RO</div>
+        <div class="side-subitem"><span class="icon-dot">🗺</span> SERVICE MAPPING</div>
+      </div>
+
+      <div class="side-group">
+        <div class="side-item"><span class="icon-dot">💰</span> AR</div>
+        <div class="side-item"><span class="icon-dot">🧰</span> PARTS</div>
+        <div class="side-item"><span class="icon-dot">⇄</span> TRANSFERS</div>
+        <div class="side-item"><span class="icon-dot">🏪</span> SHOPS</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="content">
+        <div class="breadcrumb">
+          <span class="crumb-folder">📁</span>
+          <span class="crumb-current">Customers</span>
+          <span>›</span>
+          <span>Amazon</span>
         </div>
 
-        <div class="card">
-          <h3>AI Customer Notes</h3>
-          <textarea id="customerNotes" placeholder="AI-generated customer notes will appear here"></textarea>
-        </div>
-
-        <div class="card">
-          <h3>Compliance Check</h3>
-          <div id="complianceResults" class="section muted">Run workflow to evaluate compliance.</div>
-        </div>
-
-        <div class="card">
-          <h3>Estimate Draft</h3>
-          <div id="estimateSections" class="section muted">Run workflow to generate estimate sections.</div>
-        </div>
-
-        <div class="card full">
-          <h3>Manager Actions</h3>
-          <div class="actions">
-            <button class="btn-blue" onclick="setStatus('Ready for Review')">Mark Ready for Review</button>
-            <button class="btn-green" onclick="setStatus('Approved')">Approve</button>
-            <button class="btn-yellow" onclick="setStatus('Returned to Tech')">Return to Tech</button>
-            <button class="btn-red" onclick="setStatus('Hold - Missing Info')">Put on Hold</button>
+        <div class="search-panel">
+          <div class="search-label">Search All Grids:</div>
+          <div class="search-row">
+            <input type="text" placeholder="Search all..." />
+            <button class="search-btn">🔍</button>
           </div>
         </div>
 
-        <div class="card full">
-          <h3>RO Timeline</h3>
-          <div id="timeline"></div>
+        <div class="tabbar">
+          <div class="tab active">NEEDS REVIEW <span class="count">14</span></div>
+          <div class="tab">ASSIGNED <span class="count">7</span></div>
+          <div class="tab">ESTIMATE PENDING <span class="count">1</span></div>
+          <div class="tab">ISSUES/RESUBMIT <span class="count">0</span></div>
+          <div class="tab">ESTIMATE APPROVED <span class="count">15</span></div>
         </div>
+
+        <div class="grid-shell">
+          <div class="grid-topnote">Drag a column header here to group by that column</div>
+          <div class="grid-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>⚙</th>
+                  <th>Estimate Id</th>
+                  <th>Vin</th>
+                  <th>Parent</th>
+                  <th>👤</th>
+                  <th>📄</th>
+                  <th>🛻</th>
+                  <th>Amazon</th>
+                  <th>👁</th>
+                  <th>Parts Estimate Request</th>
+                  <th>Estimate Comments</th>
+                  <th>Estimate Delay Reason</th>
+                  <th>Time In Queue</th>
+                  <th>RO Num</th>
+                  <th>WO Status</th>
+                  <th>Estimator</th>
+                  <th>Tech</th>
+                  <th>AMZ Id</th>
+                  <th>Make</th>
+                  <th>Assigned Date</th>
+                  <th>Parts PO</th>
+                  <th>Created</th>
+                  <th>Internal Comments</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">226131</td>
+                  <td class="link">3H3V532C6LF447448</td>
+                  <td>↥↧</td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟥</td>
+                  <td class="link">Update</td>
+                  <td>01h 03m</td>
+                  <td class="link">1132-0017810</td>
+                  <td class="status-work">WORK_IN_PROGRESS</td>
+                  <td class="link">MCameron@ameritflee...</td>
+                  <td class="link">SDebassie@ameritfleet.com</td>
+                  <td>amz-fme2eZwrsf5fan</td>
+                  <td></td>
+                  <td>3/18/2026, 11:01 PM</td>
+                  <td class="link">View</td>
+                  <td>3/18/2026, 4:17 AM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">✎</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">225098</td>
+                  <td class="link">1NPBDJ9X5ND821504</td>
+                  <td></td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟨</td>
+                  <td class="link">Update</td>
+                  <td>00h 34m</td>
+                  <td class="link">1279-0009873</td>
+                  <td class="status-work">WORK_IN_PROGRESS</td>
+                  <td class="link">Vanessa Tapia</td>
+                  <td class="link">APerez4@ameritfleet.com</td>
+                  <td>amz-6b2evnwsabpfya</td>
+                  <td></td>
+                  <td>3/17/2026, 2:16 AM</td>
+                  <td class="link">View</td>
+                  <td>3/16/2026, 2:49 PM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">✎</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">226602</td>
+                  <td class="link">1UJV813A7KA010702</td>
+                  <td></td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟥</td>
+                  <td class="link"><span class="badge-soft">CURRENTLY BUILDING ESTIMATE</span></td>
+                  <td>00h 18m</td>
+                  <td class="link">1134-0010424</td>
+                  <td class="status-work">WORK_IN_PROGRESS</td>
+                  <td class="link">Dena Buskins</td>
+                  <td class="link">JBlaw@ameritfleet.com</td>
+                  <td>amz-d5yzgwh2hb2s...</td>
+                  <td></td>
+                  <td>3/18/2026, 11:47 PM</td>
+                  <td class="link">View</td>
+                  <td>3/13/2026, 7:20 PM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">✎</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">226417</td>
+                  <td class="link">4V4NC9UG2NN318323</td>
+                  <td>↥↧</td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟨</td>
+                  <td class="link">Update</td>
+                  <td>00h 14m</td>
+                  <td class="link">794-00014536</td>
+                  <td class="status-work">WORK_IN_PROGRESS</td>
+                  <td class="link">Marcela Cervantes</td>
+                  <td class="link">GOnate@ameritfleet.com</td>
+                  <td>amz-f15tgu2k4nkf2</td>
+                  <td></td>
+                  <td>3/18/2026, 5:37 PM</td>
+                  <td class="link">View</td>
+                  <td>3/18/2026, 10:16 AM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">✎</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">226603</td>
+                  <td class="link">1GRTP06Z0SJ628488</td>
+                  <td></td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟨</td>
+                  <td class="link">Update</td>
+                  <td>00h 12m</td>
+                  <td class="link">1124-0003887</td>
+                  <td class="status-work">WORK_IN_PROGRESS</td>
+                  <td class="link">Adam Beal</td>
+                  <td class="link">NVazquez@ameritfleet.com</td>
+                  <td>amz-txrb9dgy2dcy</td>
+                  <td></td>
+                  <td>3/18/2026, 11:40 PM</td>
+                  <td class="link">View</td>
+                  <td>3/18/2026, 3:31 PM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">✎</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">226501</td>
+                  <td class="link">3H3V532CDLP446673</td>
+                  <td></td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟨</td>
+                  <td class="link">Update</td>
+                  <td>00h 12m</td>
+                  <td class="link">1121-0005090</td>
+                  <td class="status-work">WORK_IN_PROGRESS</td>
+                  <td class="link">Cameron Berryhill</td>
+                  <td class="link">MLlanesMoreno@ameritfle...</td>
+                  <td>amz-cb2rfkbd7aad7u</td>
+                  <td></td>
+                  <td>3/18/2026, 8:25 PM</td>
+                  <td class="link">View</td>
+                  <td>3/18/2026, 6:47 AM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">✎</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">1FUJPFW2PLNY0001</td>
+                  <td class="link"></td>
+                  <td></td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟨</td>
+                  <td class="link"></td>
+                  <td>00h 10m</td>
+                  <td class="link">1242-0009378</td>
+                  <td class="status-work">WORK_IN_PROGRESS</td>
+                  <td class="link">Assign</td>
+                  <td class="link">MLaw@ameritfleet.com</td>
+                  <td>amz-63pydcu9nwuszg</td>
+                  <td></td>
+                  <td></td>
+                  <td class="link">View</td>
+                  <td>3/18/2026, 2:48 PM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">＋</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">226568</td>
+                  <td class="link">1FUJPFW2PLNY0000</td>
+                  <td></td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟨</td>
+                  <td class="link">Update</td>
+                  <td>00h 09m</td>
+                  <td class="link">902-0001892</td>
+                  <td class="status-approved">ESTIMATE_APPROVED</td>
+                  <td class="link">BHargrave@ameritfleet...</td>
+                  <td class="link">SClendenen@ameritfleet.com</td>
+                  <td>amz-4gktr82pa67bk</td>
+                  <td></td>
+                  <td>3/18/2026, 10:57 PM</td>
+                  <td class="link">View</td>
+                  <td>3/18/2026, 2:59 PM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">✎</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">1UJV5324NL308102</td>
+                  <td class="link"></td>
+                  <td></td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟥</td>
+                  <td class="link">Update</td>
+                  <td>00h 08m</td>
+                  <td class="link">1120-0013306</td>
+                  <td class="status-work">WORK_IN_PROGRESS</td>
+                  <td class="link">Assign</td>
+                  <td class="link">RMartinez5@ameritfleet.com</td>
+                  <td>amz-bf1bawcvgh4mhb</td>
+                  <td></td>
+                  <td></td>
+                  <td class="link">View</td>
+                  <td>3/18/2026, 4:37 PM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">＋</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">1NK7D93X0NJ494398</td>
+                  <td class="link"></td>
+                  <td></td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟨</td>
+                  <td class="link"></td>
+                  <td>00h 08m</td>
+                  <td class="link">960-0007776</td>
+                  <td class="status-pending">ESTIMATE_PENDING</td>
+                  <td class="link">Assign</td>
+                  <td class="link">ARivera4@ameritfleet.com</td>
+                  <td>amz-7zuu7tpkvvb4f3</td>
+                  <td></td>
+                  <td></td>
+                  <td class="link">View</td>
+                  <td>3/18/2026, 6:49 AM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">＋</td>
+                </tr>
+
+                <tr>
+                  <td class="tiny-icon">◔</td>
+                  <td class="link">226777</td>
+                  <td class="link">4V4NC9EH7NN281234</td>
+                  <td></td>
+                  <td class="tiny-icon">👤</td>
+                  <td class="tiny-icon">🗂</td>
+                  <td class="tiny-icon">🧾</td>
+                  <td class="tiny-icon">a</td>
+                  <td class="tiny-icon">◉</td>
+                  <td class="link">View</td>
+                  <td class="tiny-icon">🟨</td>
+                  <td class="link">Need photos</td>
+                  <td>00h 06m</td>
+                  <td class="link">1450-0001775</td>
+                  <td class="status-work">WORK_IN_PROGRESS</td>
+                  <td class="link">Cameron Berryhill</td>
+                  <td class="link">JLopez@ameritfleet.com</td>
+                  <td>amz-f72k8thq9n</td>
+                  <td>Volvo</td>
+                  <td>3/18/2026, 9:14 PM</td>
+                  <td class="link">View</td>
+                  <td>3/18/2026, 8:01 PM</td>
+                  <td class="tiny-icon">💬</td>
+                  <td class="tiny-icon">✎</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="footer-note">Flyproud Portal · Release Notes</div>
       </div>
-    </div>
+    </main>
   </div>
 
-  <script>
-    const ros = [
-      {
-        ro: "RO-1001",
-        unit: "2022 Freightliner M2",
-        complaint: "Air leak at foot brake valve",
-        status: "New Submission",
-        techNotes: "Found air leak at foot brake valve. Multiple fittings leaking. Dash gauge fittings leaking. Needs additional diagnostic support and repair estimate.",
-        customerNotes: "",
-        timeline: ["RO created", "Technician submitted initial notes"]
-      },
-      {
-        ro: "RO-1002",
-        unit: "2020 Volvo VNL",
-        complaint: "Steer tires low tread",
-        status: "Hold - Missing Info",
-        techNotes: "Both steer tires at 3/32 to 4/32 and require replacement per DOT. Need tire size confirmation and photo support.",
-        customerNotes: "",
-        timeline: ["RO created", "DOT issue identified", "Waiting for supporting photos"]
-      },
-      {
-        ro: "RO-1003",
-        unit: "Hyundai Trailer 53'",
-        complaint: "Broken turn signal and damaged conspicuity tape",
-        status: "Ready for Review",
-        techNotes: "Broken passenger turn signal. Conspicuity tape peeling and damaged. Surface needs cleaned before application.",
-        customerNotes: "",
-        timeline: ["RO created", "Estimate drafted by advisor", "Ready for manager review"]
-      }
-    ];
-
-    let selectedIndex = 0;
-
-    function statusClass(status){
-      if(status === "New Submission") return "new";
-      if(status === "Hold - Missing Info") return "hold";
-      if(status === "Ready for Review") return "review";
-      if(status === "Approved") return "approved";
-      return "returned";
-    }
-
-    function renderROList(){
-      const list = document.getElementById("roList");
-      const search = document.getElementById("searchBox").value.toLowerCase();
-      const filter = document.getElementById("statusFilter").value;
-
-      list.innerHTML = "";
-
-      ros.forEach((item, index) => {
-        const matchesSearch =
-          item.ro.toLowerCase().includes(search) ||
-          item.unit.toLowerCase().includes(search) ||
-          item.complaint.toLowerCase().includes(search);
-
-        const matchesFilter = filter === "all" || item.status === filter;
-
-        if(matchesSearch && matchesFilter){
-          const div = document.createElement("div");
-          div.className = "ro-item" + (index === selectedIndex ? " active" : "");
-          div.onclick = () => {
-            selectedIndex = index;
-            loadRO();
-            renderROList();
-          };
-          div.innerHTML = `
-            <div class="row">
-              <strong>${item.ro}</strong>
-              <span class="badge ${statusClass(item.status)}">${item.status}</span>
-            </div>
-            <div style="margin-top:8px;">${item.unit}</div>
-            <div class="muted" style="margin-top:6px;">${item.complaint}</div>
-          `;
-          list.appendChild(div);
-        }
-      });
-
-      renderMetrics();
-    }
-
-    function renderMetrics(){
-      document.getElementById("metricOpen").innerText = ros.length;
-      document.getElementById("metricHold").innerText = ros.filter(r => r.status === "Hold - Missing Info").length;
-      document.getElementById("metricReview").innerText = ros.filter(r => r.status === "Ready for Review").length;
-      document.getElementById("metricApproved").innerText = ros.filter(r => r.status === "Approved").length;
-    }
-
-    function loadRO(){
-      const ro = ros[selectedIndex];
-      document.getElementById("detailTitle").innerText = `${ro.ro} — ${ro.complaint}`;
-      document.getElementById("detailMeta").innerText = `${ro.unit}`;
-      document.getElementById("detailBadge").innerHTML = `<span class="badge ${statusClass(ro.status)}">${ro.status}</span>`;
-      document.getElementById("techNotes").value = ro.techNotes || "";
-      document.getElementById("customerNotes").value = ro.customerNotes || "";
-      renderTimeline();
-
-      if(!ro.customerNotes){
-        document.getElementById("complianceResults").innerHTML = `<span class="muted">Run workflow to evaluate compliance.</span>`;
-        document.getElementById("estimateSections").innerHTML = `<span class="muted">Run workflow to generate estimate sections.</span>`;
-      }
-    }
-
-    function renderTimeline(){
-      const ro = ros[selectedIndex];
-      const timeline = document.getElementById("timeline");
-      timeline.innerHTML = ro.timeline.map(entry => `<div class="timeline-entry">${entry}</div>`).join("");
-    }
-
-    function saveNotes(){
-      const ro = ros[selectedIndex];
-      ro.techNotes = document.getElementById("techNotes").value;
-      ro.customerNotes = document.getElementById("customerNotes").value;
-      ro.timeline.unshift("Notes updated");
-      loadRO();
-      renderROList();
-    }
-
-    function setStatus(status){
-      const ro = ros[selectedIndex];
-      ro.status = status;
-      ro.timeline.unshift(`Status changed to: ${status}`);
-      loadRO();
-      renderROList();
-    }
-
-    function runAIWorkflow(){
-      const ro = ros[selectedIndex];
-      const notes = document.getElementById("techNotes").value.trim().toLowerCase();
-
-      let customer = "Inspection performed and unit requires repairs based on technician findings. Recommended repairs have been documented for review.";
-      let sections = [];
-      let issues = [];
-
-      if(notes.includes("air leak")){
-        customer = "Inspection found air system leaks requiring repair to restore proper brake and air system operation. Failed fittings and related components will need repair or replacement based on technician findings.";
-        sections.push("Section 1 – Diagnose air leak concern");
-        sections.push("Section 2 – Replace leaking air fittings or valve components");
-      }
-
-      if(notes.includes("tire") || notes.includes("3/32") || notes.includes("4/32")){
-        customer = "Inspection found tire condition below acceptable limits. Tire replacement is recommended to restore safe operation and maintain DOT compliance.";
-        sections.push("Section 1 – Verify tread depth and condition");
-        sections.push("Section 2 – Replace failed tire(s)");
-      }
-
-      if(notes.includes("turn signal") || notes.includes("light")){
-        sections.push("Section 3 – Replace failed light assembly");
-      }
-
-      if(notes.includes("conspicuity tape") || notes.includes("tape")){
-        sections.push("Section 4 – Remove damaged tape and apply new conspicuity tape");
-      }
-
-      if(notes.length < 80){
-        issues.push("Technician notes may be too brief for estimate support.");
-      }
-      if(!notes.includes("photo")){
-        issues.push("No photo support referenced in notes.");
-      }
-      if(!notes.includes("diagnos") && !notes.includes("inspect")){
-        issues.push("Diagnostic wording is limited or missing.");
-      }
-
-      const newStatus = issues.length ? "Hold - Missing Info" : "Ready for Review";
-
-      ro.customerNotes = customer;
-      ro.status = newStatus;
-      ro.timeline.unshift("AI workflow executed");
-      ro.timeline.unshift(`AI updated status to: ${newStatus}`);
-
-      document.getElementById("customerNotes").value = customer;
-      document.getElementById("detailBadge").innerHTML = `<span class="badge ${statusClass(ro.status)}">${ro.status}</span>`;
-
-      document.getElementById("estimateSections").innerHTML = sections.length
-        ? `<ul>${sections.map(s => `<li>${s}</li>`).join("")}</ul>`
-        : `<span class="muted">No sections generated.</span>`;
-
-      document.getElementById("complianceResults").innerHTML = issues.length
-        ? `<ul>${issues.map(i => `<li>${i}</li>`).join("")}</ul>`
-        : `<div class="pill">All basic checks passed</div>`;
-
-      loadRO();
-      renderROList();
-
-      document.getElementById("estimateSections").innerHTML = sections.length
-        ? `<ul>${sections.map(s => `<li>${s}</li>`).join("")}</ul>`
-        : `<span class="muted">No sections generated.</span>`;
-
-      document.getElementById("complianceResults").innerHTML = issues.length
-        ? `<ul>${issues.map(i => `<li>${i}</li>`).join("")}</ul>`
-        : `<div class="pill">All basic checks passed</div>`;
-    }
-
-    function addRO(){
-      const ro = document.getElementById("newRO").value.trim();
-      const unit = document.getElementById("newUnit").value.trim();
-      const complaint = document.getElementById("newComplaint").value.trim();
-      const notes = document.getElementById("newNotes").value.trim();
-
-      if(!ro || !unit || !complaint){
-        alert("Please enter RO number, unit, and complaint.");
-        return;
-      }
-
-      ros.unshift({
-        ro,
-        unit,
-        complaint,
-        status: "New Submission",
-        techNotes: notes,
-        customerNotes: "",
-        timeline: ["RO created manually"]
-      });
-
-      selectedIndex = 0;
-      document.getElementById("newRO").value = "";
-      document.getElementById("newUnit").value = "";
-      document.getElementById("newComplaint").value = "";
-      document.getElementById("newNotes").value = "";
-
-      renderROList();
-      loadRO();
-    }
-
-    renderROList();
-    loadRO();
-  </script>
+  <button class="support">❔ Support</button>
 </body>
 </html>
